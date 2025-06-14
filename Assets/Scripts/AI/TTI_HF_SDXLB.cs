@@ -8,13 +8,14 @@ using UnityEngine.UI;
 
 public class TTI_HF_SDXLB : MonoBehaviour
 {
-    [SerializeField]
     private string HF_INF_API_KEY;
     const string TTI_API_URI = "https://api-inference.huggingface.co/models/stabilityai/";      //POST URI
     
     private enum SDModel { stable_diffusion_3X5_large_turbo, stable_diffusion_3X5_large , stable_diffusion_xl_base_1X0}
     [SerializeField] SDModel selectedModel;
     string selectedSDString;
+
+    [SerializeField] Vector3 spawnPosition;
 
     Animator avtAnimator;
     AI_Orchestrator aiO;
@@ -86,7 +87,7 @@ public class TTI_HF_SDXLB : MonoBehaviour
             if (!genImg) 
             { 
                 genImg = Resources.Load<GameObject>("ImageFrame");
-                genImg = Instantiate(genImg, new Vector3(-5.876f, 1.5f, 6.481f), Quaternion.Euler(7.44f, 0, 0));
+                genImg = Instantiate(genImg, spawnPosition, Quaternion.Euler(7.44f, 0, 0));
             }
 
             if (!genImg) Debug.Log("Can't load the ImageFrame for the TTI output");

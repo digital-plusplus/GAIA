@@ -43,6 +43,8 @@ public class LLM_Google_Vision : MonoBehaviour
     [SerializeField]
     private bool closedContext;
 
+    [SerializeField] Vector3 spawnPosition;
+
     List<Content> messageHistory;
     AI_Orchestrator aiO;
     API_Keys api_Keys;
@@ -151,7 +153,7 @@ public class LLM_Google_Vision : MonoBehaviour
             if (!genImg)
             {
                 genImg = Resources.Load<GameObject>("ImageFrame");
-                genImg = Instantiate(genImg, new Vector3(-5.876f, 1.5f, 6.481f), Quaternion.Euler(7.44f, 0, 0));
+                genImg = Instantiate(genImg, spawnPosition, Quaternion.Euler(7.44f, 0, 0));
             }
 
             if (!genImg) Debug.Log("Can't load the ImageFrame for the TTI output");
