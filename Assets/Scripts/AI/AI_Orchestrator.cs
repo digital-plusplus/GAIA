@@ -18,22 +18,15 @@ public class AI_Orchestrator : MonoBehaviour
     [SerializeField] public LLM_Ollama llmOllama;
 
     [Header("RAG")]
-    [SerializeField] public RAG_MariaDB ragMariaDB;
     [SerializeField] public RAG_Google_WebSearch ragGWS;
     [SerializeField] public int maxResults;
     
     [Header("Text to Speech")]
-    [SerializeField] public TTS_RA_OpenAI ttsRAOpenAI;
-    [SerializeField] public TTS_RA_Speach ttsRASpeach;
     [SerializeField] public TTS_SF_Simba ttsSFSimba;
     [SerializeField] public TTS_11_Labs tts11Labs;
 
     [Header("Text to Image")]
     [SerializeField] public TTI_HF_SDXLB ttiHFSDXLB;
-    [SerializeField] public TTI_Google_FIG ttiGoogleFIG;        //Not yet implemented as ImaGen3 isn't in the free tier yet 
-
-    //[Header("Text to Mesh")]
-    //[SerializeField] public TTM_Sloyd_API ttmSloyd;           //Deprecated, Sloyd API is no longer available
 
 
     public void Init()
@@ -43,20 +36,13 @@ public class AI_Orchestrator : MonoBehaviour
         if (llmGroq) llmGroq.Init();
         if (llmOllama) llmOllama.Init();
 
-        //if (ragMariaDB) ragMariaDB.Init();
         if (ragGWS) ragGWS.Init();                              //Google Web Search RAG    
 
         if (sttGroqOpenAI) sttGroqOpenAI.Init();
         if (sttHFOpenAI) sttHFOpenAI.Init();
         if (stt11labs) stt11labs.Init();                        //11 Labs STT
 
-        if (ttiHFSDXLB) ttiHFSDXLB.Init();
-
-        //if (ttmSloyd) ttmSloyd.Init();                        //Deprecated, Sloyd API is no longer available    
-
         if (tts11Labs) tts11Labs.Init();
-        if (ttsRAOpenAI) ttsRAOpenAI.Init();
-        if (ttsRASpeach) ttsRASpeach.Init();
         if (ttsSFSimba) ttsSFSimba.Init();
     }
 
@@ -65,8 +51,6 @@ public class AI_Orchestrator : MonoBehaviour
     public void Say(string input)
     {
         if (ttsSFSimba)     ttsSFSimba.Say(input);
-        if (ttsRAOpenAI)    ttsRAOpenAI.Say(input);
-        if (ttsRASpeach)    ttsRASpeach.Say(input);
         if (tts11Labs)      tts11Labs.Say(input);
     }
 
@@ -102,15 +86,7 @@ public class AI_Orchestrator : MonoBehaviour
     //Non-async call ro retrieve Context from a RAG database
     // - all RAG systems must implement a .GetContext method
     // - add new services here to ensure consistent calls via aiO.RAGGetContext
-    public async Task<string> RAGGetContext(string prompt, int numberOfResults)
-    {
-        if (ragMariaDB)
-        {
-            return await ragMariaDB.GetContext(prompt, numberOfResults);
-        }
-        else return null;
-    }
-
+   
     public async Task<string> RAGGoogleWebSearch(string question)
     {
         if (ragGWS) 
@@ -128,37 +104,4 @@ public class AI_Orchestrator : MonoBehaviour
         if (stt11labs) return(stt11labs.InitializeMicrophone(duration));
         return (false);
     }
-
-
-    //Check whether to use RAG or not 
-    public bool RAGConfigured()
-    {
-        return (ragMariaDB == null ? false : true);
-    }
-
-
-
-    //Generalized TextToImage command - Expand here for new services!
-    public void TextToImage(string input)
-    {
-        if (ttiHFSDXLB)     ttiHFSDXLB.GetImage(input);
-    }
-
-    /*
-    //Generalized TextToMesh commands - Expand here for new services!
-    public void TTMCreate(string input)
-    {
-        if (ttmSloyd)       ttmSloyd.Create(input);
-    }
-
-    public void TTMEdit(string input)
-    {
-        if (ttmSloyd)       ttmSloyd.Edit(input);
-    }
-
-    public void TTMDelete()
-    {
-        if (ttmSloyd)       ttmSloyd.Delete();
-    }
-    */
 }

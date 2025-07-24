@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NPCClickHandler : MonoBehaviour
 {
-    public bool isRecording;
+    [HideInInspector] public bool isRecording;
 
     private void OnMouseDown()
     {

@@ -335,24 +335,6 @@ MonoBehaviour:
   selectedModel: 0
   selectedLanguage: 0
   debug: 1
---- !u!114 &219014568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219014451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dfcfb70fd9703b499a27c3d1fe527bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ZAngle: 1
-  ZFrequency: 0.05
-  XAngle: 0
-  XFrequency: 0
-  YAngle: 5
-  YFrequency: 0.1
 --- !u!114 &219014569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +349,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedModel: 0
   spawnPosition: {x: -5.56, y: 1.58, z: 5.85}
+--- !u!114 &219014586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219014451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725085e1e9f551e498e20c1685ec7dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectVoice: 2
+  selectModel: 1
+  selectOutputFormat: 0
+  debug: 1
 --- !u!224 &243895340 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22457152, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
@@ -2092,6 +2090,10 @@ PrefabInstance:
       propertyPath: debug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2779555702066680154, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4085599972424362252, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
       propertyPath: debug
       value: 0
@@ -2173,9 +2175,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 219014551}
     - target: {fileID: 7643218886839360593, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
+      propertyPath: tts11Labs
+      value: 
+      objectReference: {fileID: 219014586}
+    - target: {fileID: 7643218886839360593, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
       propertyPath: ttiHFSDXLB
       value: 
       objectReference: {fileID: 219014569}
+    - target: {fileID: 7643218886839360593, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
+      propertyPath: ttsSFSimba
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7643218886839360593, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
       propertyPath: sttGroqOpenAI
       value: 
@@ -2193,14 +2203,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4252485441180179143, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
-      insertIndex: 8
+      insertIndex: 7
       addedObject: {fileID: 219014551}
     - targetCorrespondingSourceObject: {fileID: 4252485441180179143, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
-      insertIndex: 10
+      insertIndex: 9
       addedObject: {fileID: 219014569}
     - targetCorrespondingSourceObject: {fileID: 4252485441180179143, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 219014568}
+      insertIndex: 10
+      addedObject: {fileID: 219014586}
   m_SourcePrefab: {fileID: 100100000, guid: 451ec347a644fc4449105b06bc3381b3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

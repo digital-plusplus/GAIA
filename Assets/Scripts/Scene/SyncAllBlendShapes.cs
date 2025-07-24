@@ -28,16 +28,13 @@ public class SyncAllBlendShapes : MonoBehaviour
 
     [SerializeField]
     float blinkDuration = 1f;
-    //float[] timeRemaining, timeHold;  //Enable this to enable all blendshapes to change dynamically
     float timeRemainingBlink, timeHoldBlink;
 
     [SerializeField]
     bool enableBlink;                   //Enable/Disable
 
     bool isActiveBlink;                 //Currently active
-    //bool[] direction;                   //Ramping up BS (true) or ramping down (false)
-    //int[] maxVal;                       //Maximum value of the Blendshape [0-100], set realtime by calling SetExpression
-
+   
     [SerializeField]
     bool lookAtMe = false;              //eyes of NPC try to follow you and look at you
 
@@ -62,8 +59,7 @@ public class SyncAllBlendShapes : MonoBehaviour
     [SerializeField]
     bool debug;
     string DEBUG_PREFIX = "SyncAllBlendShapes:";
-    //int numBlendShapes = 0;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -81,30 +77,13 @@ public class SyncAllBlendShapes : MonoBehaviour
         LOOKV = AddBlendShape(lookVertical);
         LOOKH = AddBlendShape(lookHorizontal);
         BLINK = AddBlendShape(blink);
-        SERIOUS = AddBlendShape(serious);
         SMILE = AddBlendShape(smile);
         ANNOYED = AddBlendShape(annoyed);
         SQUINT = AddBlendShape(squint);
-        //if (debug) Debug.Log(DEBUG_PREFIX + LOOKV + " " + LOOKH + " " + BLINK + " " + SERIOUS + " " + SMILE + " " + ANNOYED + " " + SQUINT);
-
-        /*Not used yet
-        //Allocate memory for the remaining time, time comparison and enableBlendShape arrays
-        numBlendShapes = gen9Shape_Mesh.blendShapeCount;
-        timeRemaining = new float[numBlendShapes];  //how much time of the BS is remaining
-        timeHold = new float[numBlendShapes];       //in case we need a recurring BS like BLINK
-        direction = new bool[numBlendShapes];
-        maxVal = new int[numBlendShapes];
-        isActiveBlink = false;
-        */
-
+        
         //Blink timer stuff
         enableBlink = true;
         isActiveBlink = false;
-
-        /* Not used yet
-        timeRemaining[BLINK] = blinkInterval; 
-        timeHold[BLINK] = blinkDuration;      
-        */
         timeRemainingBlink = blinkInterval;
 
         //Eye tracking
@@ -133,48 +112,12 @@ public class SyncAllBlendShapes : MonoBehaviour
         //Update blinking
         if (enableBlink) BlinkManager();
 
-        //Not used in Stalland - optimization needed to avoid unnecessary calls in Update() loop
-        /*for (int i = 0; i < numBlendShapes; i++)
-        {
-            if ((i != LOOKV) && (i != LOOKH) && (i != BLINK))             //Skip eye stuff
-                  BSManager(i, 100, timeHold[i]);
-        }*/
-
         //Update Eye tracking
         if (lookAtMe)
         {
             EyeToXRTrackingUpdate();
         }
     }
-
-
-    /* Not used yet
-    //These public methods set the expression for a certain duration and a certain ramp-up time
-    public void SetExpression(int bs, float rampup, int maxValue)
-    {
-        if (debug)
-            Debug.Log(DEBUG_PREFIX + "SET Expression " + bs + " for " + rampup + " seconds");
-
-        timeRemaining[bs] = rampup;
-        timeHold[bs] = rampup;          //store the total ramp time for reference per frame
-        direction[bs] = true;
-        maxVal[bs] = maxValue;          //Store the max the expression should go for in this particular call (in %)
-        //IMPORTANT: Update() is now reducing timeRemaining[bs] each cycle
-    }
-
-
-    public void ResetExpression(int bs, float rampdown)
-    {
-        if (debug)
-            Debug.Log(DEBUG_PREFIX + "RESET Expression " + bs + " for " + rampdown + " seconds");
-
-        timeRemaining[bs] = rampdown;
-        timeHold[bs] = rampdown;        //store the total ramp time for reference per frame
-        direction[bs] = false;
-
-        //IMPORTANT: Update() is now reducing timeRemaining[bs] each cycle
-    }
-    */
 
     //run a cycle to sync all BSs
     private void SyncBlendShapesCycle()
@@ -189,24 +132,6 @@ public class SyncAllBlendShapes : MonoBehaviour
             gen9Eyes_SMR.SetBlendShapeWeight(i, bsVal);
         }
     }
-
-    /* Not used yet
-    //Plays a Blendshape, if isStarting then BS increases to target value within ramp time
-    // if !isStarting then BS decreases to 0 within ramp time
-    private void BSManager(int bs, int maxVal, float ramp )
-    {
-        if (bs == -1) return;                                                   //skip non-defined blendshapes
-
-        if (timeRemaining[bs] > 0)
-        {
-            timeRemaining[bs] -= Time.deltaTime;
-            int val = Mathf.Max((direction[bs] ? (int)(maxVal * (1 - timeRemaining[bs] / ramp)) : (int)(100 * timeRemaining[bs] / ramp)), 0);
-            BlendFace(bs, val);
-
-            //Debug.Log(DEBUG_PREFIX + " Time Remaining:" + timeRemaining[bs] + " Ramp=" + ramp + " BS Value=" + val);
-        }
-    }
-    */
 
 
     //Manages blinking of the NPC
@@ -251,8 +176,6 @@ public class SyncAllBlendShapes : MonoBehaviour
 
         bsoH = Mathf.Min(Mathf.Max(100 * Mathf.Asin(deltaH.x) / delta.magnitude, -70), 70);
         bsoV = Mathf.Min(Mathf.Max(200 * Mathf.Asin(deltaV.y) / delta.magnitude, -70), 70);
-
-        //Debug.Log(bsoH + " " + bsoV);
 
         BlendFace(LOOKH, (int)bsoH);
         BlendFace(LOOKV, (int)bsoV);

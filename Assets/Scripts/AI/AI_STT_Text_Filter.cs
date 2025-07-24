@@ -62,19 +62,6 @@ public class AI_STT_Text_Filter : MonoBehaviour
             containsKeyWord[18] || containsKeyWord[19] || containsKeyWord[20])
             return PreFilterClass.isSpeech;                                         //RAG questions have top prio->speech
 
-        if (containsKeyWord[0] || containsKeyWord[1] || containsKeyWord[2])
-            return PreFilterClass.isImage;
-        if (containsKeyWord[3] || containsKeyWord[4])
-            return PreFilterClass.is3DCreate;
-        if (containsKeyWord[5] || containsKeyWord[6] || containsKeyWord[7])
-            return PreFilterClass.is3DEdit;
-        if (containsKeyWord[8] || containsKeyWord[9])
-            return PreFilterClass.is3DDelete;
-        if (containsKeyWord[10] || containsKeyWord[11])
-            return PreFilterClass.is3DSpecifier;
-        if (containsKeyWord[12] || containsKeyWord[13] || containsKeyWord[14])
-            return PreFilterClass.is3DLOD;
-
         //Switch cameras
         if (containsKeyWord[24])
             return PreFilterClass.isNextCam;
@@ -98,20 +85,11 @@ public class AI_STT_Text_Filter : MonoBehaviour
                 if (debug)
                     Debug.Log(DEBUG_PREFIX + "IS_SPEECH");
 
-                //Now check whether RAG is enabled, if so concat the context from the RAG database!
-                if (aiO.RAGConfigured())
-                    context = await aiO.RAGGetContext(sttResponseText, aiO.maxResults);
-
                 if (debug)
                     Debug.Log(DEBUG_PREFIX + "Prompt:" + sttResponseText + ", Context:" + context);
 
                 //Now send the text to LLM via the AI Orchestrator
                 aiO.TextToLLM(sttResponseText, context);
-                break;
-            
-            case PreFilterClass.isImage:
-                //Apparently we're asking for an image so send to StableDiffusion
-                aiO.TextToImage(sttResponseText);
                 break;
 
             case PreFilterClass.isVision:
@@ -130,51 +108,6 @@ public class AI_STT_Text_Filter : MonoBehaviour
                 aiO.TextToLLM(sttResponseText, context);    //Now send the text to LLM via the AI Orchestrator
                 break;
 
-            /* == TURNED OFF FOR GAIA ==
-            case PreFilterClass.is3DCreate:
-                trimmed = sttResponseText;
-                trimmed = Trim(trimmed, keyWords[3]);
-                trimmed = Trim(trimmed, keyWords[4]);
-                if (trimmed != sttResponseText)   //Found keyword, response was trimmed!
-                {
-                    //Remove the words Mesh or Model
-                    trimmed = Trim(trimmed, keyWords[10]);
-                    trimmed = Trim(trimmed, keyWords[11]);
-                    trimmed = Regex.Replace(trimmed, "[^a-zA-Z0-9 ]", "");  //remove non-alpa
-                    trimmed = Regex.Replace(trimmed, "of a", "");           //remove unneccesary words 
-                    aiO.TTMCreate(trimmed);
-                }
-                else Debug.LogError("TTM - No CREATE keyword found!");
-                break;
-
-            case PreFilterClass.is3DEdit:
-                trimmed = sttResponseText;
-                trimmed = Trim(trimmed, keyWords[5]);
-                trimmed = Trim(trimmed, keyWords[6]);
-                trimmed = Trim(trimmed, keyWords[7]);
-                if (trimmed != sttResponseText)     //Found keyword, remove 3D specifier keywords and send to Sloyd
-                {
-                    trimmed = Trim(trimmed, keyWords[10]);
-                    trimmed = Trim(trimmed, keyWords[11]);
-                    trimmed = Regex.Replace(trimmed, "[^a-zA-Z0-9 ]", "");   //remove non-alpa
-                    aiO.TTMEdit(trimmed);
-                }
-                else Debug.LogError("TTM - No EDIT keyword found");
-                break;
-
-            case PreFilterClass.is3DDelete:
-                aiO.TTMDelete();
-                break;
-
-            case PreFilterClass.is3DLOD:
-                if (aiO.ttmSloyd)
-                {
-                    if (containsKeyWord[13]) aiO.ttmSloyd.IncreaseLOD();
-                    if (containsKeyWord[14]) aiO.ttmSloyd.DecreaseLOD();
-                }
-                else Debug.LogError("TTM_Sloyd not found, please configure in Inspector!");
-                break;
-            */
             default:
                 Debug.LogWarning("Don't know what to do with this request!");
                 aiO.Say("I have no clue what you want from me, I am really sorry!");

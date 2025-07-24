@@ -4325,12 +4325,9 @@ GameObject:
   - component: {fileID: 8917838835034181654}
   - component: {fileID: 8649771541322101591}
   - component: {fileID: 7643218886839360593}
-  - component: {fileID: 7893113558222823601}
   - component: {fileID: 4085599972424362252}
-  - component: {fileID: 1370931522985336294}
   - component: {fileID: 5317836860622662415}
   - component: {fileID: 5332595184491437396}
-  - component: {fileID: 2779555702066680154}
   - component: {fileID: 5812898482751691089}
   - component: {fileID: 883091964036008407}
   - component: {fileID: 7564644857802313972}
@@ -4513,10 +4510,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4252485441180179143}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -4559,36 +4556,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244712dae6e6500449d96bb4565a7436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sttGroqOpenAI: {fileID: 7893113558222823601}
+  sttGroqOpenAI: {fileID: 0}
   sttHFOpenAI: {fileID: 0}
+  stt11labs: {fileID: 0}
   llmGroq: {fileID: 0}
   llmGoogle: {fileID: 0}
   llmGoogleVision: {fileID: 4085599972424362252}
   llmOllama: {fileID: 0}
-  ragMariaDB: {fileID: 0}
   ragGWS: {fileID: 0}
   maxResults: 3
-  ttsRAOpenAI: {fileID: 0}
-  ttsRASpeach: {fileID: 0}
-  ttsSFSimba: {fileID: 2779555702066680154}
+  ttsSFSimba: {fileID: 0}
   tts11Labs: {fileID: 0}
   ttiHFSDXLB: {fileID: 0}
-  ttiGoogleFIG: {fileID: 0}
---- !u!114 &7893113558222823601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10a153d6dda5c44aaf13bc2d826b8cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedModel: 0
-  selectedLanguage: 0
-  debug: 1
 --- !u!114 &4085599972424362252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4607,21 +4586,7 @@ MonoBehaviour:
   context: You are a friendly assistant, you were born in 2001 and you have a dog
     named Rocket.
   closedContext: 1
-  debug: 1
---- !u!114 &1370931522985336294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eca69c1eff4cd4441b3cfac01af13d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apiURI: https://192.168.2.15/GAIAPI/getsimilarG.php
-  similarityTreshold: 0.118
+  spawnPosition: {x: 0, y: 0, z: 0}
   debug: 1
 --- !u!114 &5317836860622662415
 MonoBehaviour:
@@ -4635,8 +4600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cccbdcddbac43ed45859a71ff4c55e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: AIzaSyCpSCe1Ovjwup7IIhEHUc6MRs6p4iYYgIo
-  searchEngineId: a355ca1f421c54605
   maxResults: 5
   debug: 1
 --- !u!114 &5332595184491437396
@@ -4652,21 +4615,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
---- !u!114 &2779555702066680154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e60fb0374f3da848aa5ba2215566d7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectVoice: 38
-  selectModel: 1
-  debug: 0
 --- !u!114 &5812898482751691089
 MonoBehaviour:
   m_ObjectHideFlags: 0
