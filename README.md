@@ -23,15 +23,13 @@ Steps to get started
 3. Go to File -> Open Scene -> BaMMain 
 4. Import the uLipSync package: Top Menu -> Assets -> Import Package -> Custom Package -> Navigate to the uLipSync package in this repository and import it
 5. If you want the InGame Debug Console then go to the Unity Store and purchase it (free)
-6. Be sure to get API keys from the following cloud providers: HuggingFace (free), GroqCloud (free), Speechify (paid), RapidAPI (partially free) and Sloyd.ai (partially free).
+6. Be sure to get API keys from the following cloud providers: HuggingFace (partially free), GroqCloud (partially free), Speechify (partially free).
 7. Add the API Keys in /Assets/Resources/Secure/APIKeys.txt with the following lines (no bullets)
 * Google_API_Key:YourKeyHere
 * Google_SearchID:YourKeyHere
 * Groq_API_Key:YourKeyHere
 * Speechify_API_Key:YourKeyHere
-* HF_API_Key:YourKeyHere
 * ElevenLabs_API_Key:YourKeyHere
-* Rapid_API_Key:YourKeyHere
 
 
 Compatibility
