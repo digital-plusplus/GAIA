@@ -2,7 +2,7 @@ What is this project
 ====================
 This is a fully featured, free*, functional UNITY 6 AI project. Features:
 * NPC with speech interface: using STT+LLM+TTS cloud services
-* Speech to Text providers supported: GroqCloud(OpenAI Whisper), HuggingFace (ElevenLabs to be added soon)
+* Speech to Text providers supported: GroqCloud(OpenAI Whisper), ElevenLabs & more
 * LLM supported: GroqCloud, Google Gemini, Ollama
 * Text to Speech supported: Speechify, ElevenLabs
 * RAG supported: Google Web Search
