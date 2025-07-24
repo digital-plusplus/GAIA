@@ -12,7 +12,7 @@ This is a fully featured, free*, functional UNITY 6 AI project. Features:
 What is new in this Branch
 ==========================
 * This branch is running on UNITY 6000.1.12f1 (July 2025)
-* AI API keys are stored in a file in Assets/Resources/Secure (not included)
+* AI API keys are stored in a file in Assets/Resources/Secure (<b>not</b> included)
 * Google LLM has a version with <b>vision</b> which is able to interpret webcam/camera images
 
 
