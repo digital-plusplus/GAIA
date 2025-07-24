@@ -1,43 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+//-----------------------------------------------------------
+// Project GAIA - 2026
+// Developed by DigitalPlusPlus
+// This code is licensed under GPL 3.0
+//-----------------------------------------------------------
+
+/// <summary>
+/// This component reads the api keys from a local file. This is a HIGHLY simplified NON_SECURE version of the non-GPL 
+/// version that has remote key retrieval, encryption and iOS PList integration!
+///  MessageBus:    NO
+///  Tool-Calling:  NO
+/// </summary>
+
+//*************IMPORTANT*************************************************************************
+//!! The API Key variables are loaded from a file apikeys.txt which is EXCLUDED by .gitignore !!!
+//*************IMPORTANT*************************************************************************
+
 
 public class API_Keys : MonoBehaviour
 {
-    //*************IMPORTANT***************************************************************
-    //!! The API Key variables are loaded from a file which is EXCLUDED by .gitignore !!!
-    //*************IMPORTANT***************************************************************
-    //  Note: ReadOnly attribute is defined in /Scripts/System/ReadOnlyAttributes script!
     
-    [SerializeField] public string filePath;              //file + path
+    [Header("Local Configuration(insecure)")]
+    [SerializeField] public string filePath;               //file + path
+
     [SerializeField] bool debug;
 
-    private Dictionary<string, string> apiKeys = new Dictionary<string, string>();
+    private Dictionary<string, string> apiKeys = new Dictionary<string, string>();          //The dictionary that contains the actual API keys 
     const string DEBUG_PREFIX="API_Keys: ";
-
-    AI_Orchestrator aiO;
-
-
-    private void Start()
-    {
-        //Now find the orchestrator
-        aiO = GetComponent<AI_Orchestrator>();
-        if (!aiO)
-        {
-            Debug.LogError(DEBUG_PREFIX + "AI Orchestrator component not found!");
-            return;
-        }
-
-        ReadAPIKeys();
-
-        if (debug) 
-            DumpAPIKeys();
-
-        //Now initialize all AI components, AFTER all keys were read so we do have all keys loaded
-        aiO.Init();     //will on its turn Init all registered AI components
-
-    }
 
 
     //Public method to request the API key for a service, API keys are all in a simple text file 
@@ -47,11 +39,19 @@ public class API_Keys : MonoBehaviour
     }
 
 
+    public async Task Init()
+    {
+        //We check whether the server URL is provided, otherwise we will use a local stored file (debug only, insecure)
+        ReadAPIKeys();   
+        await Task.Delay(0);
+    }
+
+
     //Read API keys from a simple text file, this file must NEVER be synchronized by GitHub!
     private void ReadAPIKeys()
     {
         TextAsset textFile = Resources.Load<TextAsset>(filePath);
-
+        
         if (textFile!=null)
         {
             string[] lines = textFile.text.Split('\n');
@@ -64,15 +64,5 @@ public class API_Keys : MonoBehaviour
             }
         }
         else Debug.LogError(DEBUG_PREFIX + "API keys file not found!");
-    }
-
-    
-    //Debug only
-    private void DumpAPIKeys()
-    {
-        foreach (KeyValuePair<string, string> entry in apiKeys)
-        {
-            Debug.Log(DEBUG_PREFIX+$"Service: {entry.Key}, API Key: {entry.Value}");
-        }
     }
 }

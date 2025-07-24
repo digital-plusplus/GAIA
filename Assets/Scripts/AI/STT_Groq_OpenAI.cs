@@ -1,17 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System;
-using System.IO;
+using System.Threading.Tasks;
+using imessages;
 
+//-----------------------------------------------------------
+// Project GAIA - 2026
+// Developed by DigitalPlusPlus
+// This code is licensed under GPL 3.0
+//-----------------------------------------------------------
 
 /// <summary>
-/// STT_Groq_OpenAI - Speech to Text Component
-/// - adapted for Project GAIA to support WebGL PTT and Release events instead of XR Controller buttons
-/// - Updated: 20250128 Sealand IT Services
+/// Speech To Text service using GroqCloud - NON-streaming!
+///  MessageBus:    YES
+///  Tool-Calling:  NO, driven by PTT button
 /// </summary>
-public class STT_Groq_OpenAI : MonoBehaviour
+
+
+public class STT_Groq_OpenAI : MonoBehaviour, ISttService, IAIComponent
 {
     private string GROQ_API_KEY;
     const string GROQ_API_URI = "https://api.groq.com/openai/v1/audio/transcriptions";      //POST URI
@@ -21,50 +27,48 @@ public class STT_Groq_OpenAI : MonoBehaviour
 
     [SerializeField] private STTModel selectedModel;    //What model did we select
     string selectedSTTString;
-   
+
     [SerializeField] private STTLang selectedLanguage;
     string selectedSTTLang;
 
     AI_WAV wavObject;                                   //Object that holds stream and methods for WAV
-    AI_STT_Text_Filter aiSTTTextFilter;
     API_Keys api_Keys;
 
     NPCClickHandler npcClickHandler;                    //Link to component that captures click & release events 
+    private bool isRecording;
     AudioSource aud;
     private AudioClip clip;
     bool processing;                                    //To block for new requests whilst we're processing
 
     [SerializeField] bool debug;                        //Debug information
+    iMessage iM = new iMessage();
+
     private bool micInitialized = false;                //Checking whether the microphone was initialized, required for WebGL
     const string DEBUG_PREFIX = "STT_GROQ: ";
 
+    private bool sttReady = false;                      //REMOVE
 
-    public void Init()
+    private MessageBus _messageBus;
+    public ComponentID ComponentId { get; set; }
+
+
+    public void SelectLanguage(string langCode)
     {
-        //We first retrieve the API keys from the API Key component
-        api_Keys = GetComponent<API_Keys>();
-        if (!api_Keys)
-            Debug.LogError(DEBUG_PREFIX + "Cannot find the API Keys component, please check the Inspector!");
-        else GROQ_API_KEY = api_Keys.GetAPIKey("Groq_API_Key");
+        if (debug)
+            Debug.Log(DEBUG_PREFIX + " Setting STT Language to " + langCode);
 
-        if (GROQ_API_KEY == null)
-            Debug.LogWarning(DEBUG_PREFIX + "Warning: STT API key not found, check API Key File!");
+        switch (langCode.ToLower().Substring(0,2))
+        {
+            case "nl":
+                selectedLanguage = STTLang.nl;
+                break;
 
-        //Connect to the Audio Source component
-        aud = GetComponent<AudioSource>();
-
-        //Reinstate original non-alphanumerical characters
-        selectedSTTString = selectedModel.ToString().Replace('_', '-').Replace('X', '.');
+            default:    //English is the default
+                if (debug) Debug.Log(DEBUG_PREFIX + "Using English as default language for STT");
+                selectedLanguage = STTLang.en;
+                break;
+        }
         selectedSTTLang = selectedLanguage.ToString();
-
-        //Link to the WAV output source & Text Filter
-        wavObject = GetComponent<AI_WAV>();                      //Start with a clean stream
-        aiSTTTextFilter = GetComponent<AI_STT_Text_Filter>();    //Connect with Text Filter
-
-        //Link to the NPC Click Handler component
-        npcClickHandler = GetComponent<NPCClickHandler>();
-        if (!npcClickHandler) 
-            Debug.LogError("STT: Cannot find the NPC Click Handler component");
     }
 
 
@@ -74,10 +78,10 @@ public class STT_Groq_OpenAI : MonoBehaviour
     {
         if (micInitialized) return true;
 
-        if (debug) 
+        if (debug)
             Debug.Log("STT: Initializing Microphone");
-        
-        AudioClip tmpClip = Microphone.Start("", false, seconds, 11025); 
+
+        AudioClip tmpClip = Microphone.Start("", false, seconds, 11025);
         if (tmpClip)
         {
             micInitialized = true;
@@ -93,23 +97,25 @@ public class STT_Groq_OpenAI : MonoBehaviour
     //=========================================================================
     //Event handlers initiate the AI Conversation
     //=========================================================================
-    
-    public void StopSpeaking()
+    private void StopSpeaking()
     {
-        if (debug) 
+        if (debug)
             Debug.Log("STT: StopSpeaking called");
         clip = null;
         Microphone.End(null);
     }
 
 
-    private void Update()
-    {        
-        //Start talking event - work for WebGL as well
-        if ((npcClickHandler.isRecording)&&(!clip))
+    private async void Update()
+    {
+        if (!sttReady) return;                                    //Avoid we run before Init is completed
+
+        //Start talking event - works for WebGL as well
+        if ((isRecording) && (!clip))
         {
             Microphone.End(null);                                 //Just to be sure we close this mic
             clip = Microphone.Start("", false, 30, 11025);        //use default mic
+
             if (!clip)                                            //NO BROWSER PERMISSION!        
             {
                 Debug.LogError("STT: Awaiting Microphone approval");
@@ -117,65 +123,44 @@ public class STT_Groq_OpenAI : MonoBehaviour
             }
             else
             {
-                if (debug) 
+                if (debug)
                     Debug.Log("STT: Connected to the Microphone, clip created...");
                 aud.clip = clip;
                 processing = false;
-
-                //Turn on listening expression!
-                GetComponent<SyncAllBlendShapes>().SetListen(true);
             }
         }
 
         //Stop talking event
-        if ((!npcClickHandler.isRecording)&&clip)
+        if ((!isRecording) && clip)
         {
             if (!processing)
             {
                 processing = true;                          //State change, we do this once per talk event!
-                wavObject = new AI_WAV();                   //Start with a clean stream
-                if (debug) 
+                wavObject = gameObject.AddComponent<AI_WAV>();
+                if (debug)
                     Debug.Log("STT: Detected a stop recording event");
 
                 if (clip)
                 {
                     wavObject.ConvertClipToWav(clip);       //wavObject now holds the WAV stream data
-                    StartCoroutine(STT());                  //Call STT cloudsvc  
+                    await STT();
+                    Destroy(wavObject);
                 }
                 else
                     Debug.LogError("STT: Whoops nothing was recorded!");
-
-                //Turn off listening expression!
-                GetComponent<SyncAllBlendShapes>().SetListen(false);
             }
         }
     }
 
 
-    void OnDestroy()
-    {
-        if (clip != null)
-        {
-            Destroy(clip);
-            clip = null;
-        }
-
-        if (aud != null)
-        {
-            Destroy(aud);
-            aud = null;
-        }
-    }
-   
-
     //REST API Call using the converted WAV stream buffer
-    IEnumerator STT()
-    {   
+    private async Task STT()
+    {
         //Groq STT doesnt use JSON but http forms
         WWWForm form = new WWWForm();
         form.AddField("model", selectedSTTString);
         form.AddField("language", selectedSTTLang);
-        form.AddBinaryData("file", wavObject.stream.GetBuffer(), "audio.wav", "audio/wav" );          //push the data into a http form field
+        form.AddBinaryData("file", wavObject.stream.GetBuffer(), "audio.wav", "audio/wav");          //push the data into a http form field
         UnityWebRequest request = UnityWebRequest.Post(GROQ_API_URI, form);                 //slightly different, not using JSON but Form to send parameters
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
 
@@ -183,7 +168,7 @@ public class STT_Groq_OpenAI : MonoBehaviour
         request.SetRequestHeader("Authorization", "Bearer " + GROQ_API_KEY);                //Don't add a header Content-Type: Application/json here as it uses a http form
 
         // Send the request and decompress the multimedia response
-        yield return request.SendWebRequest();
+        await request.SendWebRequest();
         if (request.result == UnityWebRequest.Result.Success)
         {
             CleanupForNextQuestion();
@@ -192,13 +177,15 @@ public class STT_Groq_OpenAI : MonoBehaviour
             SpeechToTextData sttResponse = JsonUtility.FromJson<SpeechToTextData>(responseText);
 
             // Extract the "Content" section, text
-            if (debug) 
+            if (debug)
                 Debug.Log("STT service responded with: " + sttResponse.text);
 
-            //Now analyze the text and direct to LLM or TTI or....
-            aiSTTTextFilter.DirectToCloudProviders(sttResponse.text);
+            //Now respond back to the Director that we have some actual spoken text
+            await RespondMessage(MessageCommands.isSTTTranscription, sttResponse.text, ComponentID.Broadcast, false);       //Special version, as this is a response to all
         }
         else Debug.LogError("API request failed: " + request.error);
+        
+        request.Dispose();
     }
 
 
@@ -218,5 +205,175 @@ public class STT_Groq_OpenAI : MonoBehaviour
     public class SpeechToTextData
     {
         public string text;
+    }
+    
+
+    //=====================================================================================
+    // IAIComponent IMPLEMENTATION
+    //=====================================================================================
+    public async Task Init(MessageBus messageBus)
+    {
+        _messageBus = messageBus;                                   //Ensure we link to the active bus
+        ComponentId = ComponentID.STT_Service;                      //Make yourself known
+
+        Debug.Log(DEBUG_PREFIX+"Initializing");
+        await _messageBus.Subscribe<STTRequestMessage>(HandleSTTRequestAsync);
+        await _messageBus.Subscribe<PreferenceResponseMessage>(HandlePrefsResponseMessageAsync);                //To activateincoming preference changes!
+        Debug.Log(DEBUG_PREFIX + " started and subscribed to STTRequestMessage.");
+
+        //We first retrieve the API keys from the API Key component
+        api_Keys = GetComponent<API_Keys>();
+        if (!api_Keys)
+            Debug.LogError(DEBUG_PREFIX + "Cannot find the API Keys component, please check the Inspector!");
+        else GROQ_API_KEY = api_Keys.GetAPIKey("Groq_API_Key");
+
+        if (GROQ_API_KEY == null)
+            Debug.LogWarning(DEBUG_PREFIX + "Warning: STT API key not found, check API Key File!");
+
+        //Connect to the Audio Source component
+        aud = GetComponent<AudioSource>();
+
+        //Reinstate original non-alphanumerical characters
+        selectedSTTString = selectedModel.ToString().Replace('_', '-').Replace('X', '.');
+        selectedSTTLang = selectedLanguage.ToString();
+
+        //Link to the WAV output source & Text Filter
+        wavObject = GetComponent<AI_WAV>();                      //Start with a clean stream
+    
+        //Link to the NPC Click Handler component
+        npcClickHandler = GetComponent<NPCClickHandler>();
+        if (!npcClickHandler)
+            Debug.LogError("STT: Cannot find the NPC Click Handler component");
+
+        sttReady = true;        //REMOVE
+
+        await Task.Delay(0);    //dummy to keep the compiler happy for now.
+    }
+
+
+    // Unsubscribes from the message bus.
+    public async Task Stop()
+    {
+        await _messageBus.Unsubscribe<STTRequestMessage>(HandleSTTRequestAsync);
+        await _messageBus.Unsubscribe<PreferenceResponseMessage>(HandlePrefsResponseMessageAsync);                //To activateincoming preference changes!
+        Debug.Log(DEBUG_PREFIX + ComponentId + " stopped.");
+    }
+
+
+    private void OnDestroy()
+    {
+        if (clip != null)
+        {
+            Destroy(clip);
+            clip = null;
+        }
+
+        if (aud != null)
+        {
+            Destroy(aud);
+            aud = null;
+        }
+        
+        // Gracefully unsubscribe when the object is destroyed.
+        _ = Stop();
+    }
+
+
+    //=====================================================================================
+    // MESSAGE BUS HANDLERS
+    //=====================================================================================
+
+    //Outgoing messages
+    public async Task RespondMessage(string content, ComponentID requestorId, bool isError)
+    {
+        STTResponseMessage message = new STTResponseMessage()
+        {
+            Command = MessageCommands.isSTTResponse,
+            Content = content,
+            SenderId = ComponentId,
+            TargetId = requestorId,
+            IsError = false
+        };
+        await _messageBus.Publish<STTResponseMessage>(message);
+
+    }
+    
+    //Explicit MessageCommand overload
+    public async Task RespondMessage(MessageCommands command,  string content, ComponentID requestorId, bool isError)
+    {
+        STTResponseMessage message = new STTResponseMessage()
+        {
+            Command = command,
+            Content = content,
+            SenderId = ComponentId,
+            TargetId = requestorId,
+            IsError = false
+        };
+        await _messageBus.Publish<STTResponseMessage>(message);
+
+    } 
+
+
+    // Handles the incoming STT request messages.
+    private async Task HandleSTTRequestAsync(STTRequestMessage message)
+    {
+        iM.Log(ComponentId.ToString(), message.SenderId.ToString(), message.Command.ToString(), message.Content);
+
+        //Lets see what we received and act accordingly
+        switch (message.Command)
+        {
+            //Start Recording
+            case MessageCommands.isSTTStartRecording:
+                isRecording = true;         //This triggers the STT service via Update()!
+                break;
+
+            //Stop recording
+            case MessageCommands.isSTTStopRecording:
+                isRecording = false;        //This triggers the STT service via Update()!
+                break;
+
+            //Select language, do some addl. checks whether the language exists
+            case MessageCommands.isSTTSelectLanguage:
+                if (message.Content.Length < 2)
+                    await RespondMessage("Unknown language:" + message.Content, message.SenderId, true); //return an error
+                else
+                {
+                    SelectLanguage(message.Content.Substring(0, 2));
+                }
+                break;
+
+            //Initialize Microphone
+            case MessageCommands.isSTTInitializeMicrophone:
+                InitializeMicrophone(1);
+                break;
+
+            //We received nonsense.
+            default:
+                await RespondMessage( "Unknown message type", message.SenderId, true);
+                break;
+        }
+    }
+
+
+    //Incoming preference changes pushed by Preference Manager
+    private Task HandlePrefsResponseMessageAsync(PreferenceResponseMessage message)
+    {
+        iM.Log(ComponentId.ToString(), message.SenderId.ToString(), message.Command.ToString(), message.Content);
+
+        //Lets see what we received and act accordingly
+        switch (message.Command)
+        {
+            case MessageCommands.isPreferencesResponse:
+                
+                //Avatar
+                if (!string.IsNullOrEmpty(message.selectedLanguage))
+                    SelectLanguage(message.selectedLanguage);                   //Set the preference language for the STT component
+                break;
+            
+            default:
+                Debug.LogError(DEBUG_PREFIX + "Error, unknown MessageCommand received!");
+                break;
+        }
+        return Task.CompletedTask;
     }
 }

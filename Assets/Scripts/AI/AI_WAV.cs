@@ -1,7 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+
+//-----------------------------------------------------------
+// Project GAIA - 2026
+// Developed by DigitalPlusPlus
+// This code is licensed under GPL 3.0
+//-----------------------------------------------------------
+
+/// <summary>
+/// Supports the STT module by saving the recorded audio stream to a WAV object in memory
+///  MessageBus:    NO
+///  Tool-Calling:  NO
+/// </summary>
 
 public class AI_WAV : MonoBehaviour
 {

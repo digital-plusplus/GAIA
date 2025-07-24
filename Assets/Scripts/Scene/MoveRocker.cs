@@ -1,5 +1,17 @@
 using UnityEngine;
 
+//-----------------------------------------------------------
+// Project GAIA - 2026
+// Developed by DigitalPlusPlus
+// This code is licensed under GPL 3.0
+//-----------------------------------------------------------
+
+/// <summary>
+/// Gently rocks a GameObject in x,y,z direction
+///  MessageBus:    NO
+///  Tool-Calling:  NO
+/// </summary>
+
 public class MoveRocker : MonoBehaviour
 {
     [SerializeField] private int ZAngle = 20;

@@ -2,18 +2,21 @@ What is this project
 ====================
 This is a fully featured, free*, functional UNITY 6 AI project. Features:
 * NPC with speech interface: using STT+LLM+TTS cloud services
-* Speech to Text providers supported: GroqCloud(OpenAI Whisper), HuggingFace (ElevenLabs to be added soon)
-* LLM supported: GroqCloud, Google Gemini, Ollama
-* Text to Speech supported: Speechify, ElevenLabs
-* RAG supported: Google Web Search
+* NPC expressions/emotions using blendshapes
+* Speech to Text providers supported: GroqCloud(OpenAI Whisper)
+* LLM with vision and function calling supported: GroqCloud, Ollama
+* Text to Speech supported: Speechify
+* Various function calling tools: Google Websearch, Weather service, Maps, GPS, open URL
+* Communication to remote services using REST API, internal component communication using an async Message Bus
 
 (* => excluding paid cloud services for the NPC and assumes you don't exceed the Vivox Voice services complementary service tresholds)
 
 What is new in this Branch
 ==========================
-* This branch is running on UNITY 6000.1.12f1 (July 2025)
-* AI API keys are stored in a file in Assets/Resources/Secure (not included)
-* Google LLM has a version with <b>vision</b> which is able to interpret webcam/camera images
+* Supports FUNCTION CALLING capabilities of LLM services, allows for more interactive conversations
+* Completely rearchitected backend using an asynchroneous MessageBus to support function calling and direct AI component communication
+* Both Ollama and GroqCloud components support Vision and Function Calling
+* Tools: gps, web search, web crawl, open webpage, weather, map 
 
 
 Steps to get started
@@ -36,4 +39,5 @@ Steps to get started
 
 Compatibility
 =============
-* Currently this code is tested for iOS, Android, Windows and WebGL
+* Currently this code is tested for iOS, Android and MacOS. Windows should work fine but must add Windows Build Profile
+* It should run perfectly on a Mac, Android and iOS (to be tested)

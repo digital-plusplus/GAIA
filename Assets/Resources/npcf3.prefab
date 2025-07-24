@@ -527,6 +527,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -554,6 +556,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -718,16 +721,6 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 50
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 25
   - 0
   - 0
   - 0
@@ -742,7 +735,17 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 25
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   - 0
@@ -955,6 +958,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -977,6 +982,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1408,6 +1414,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1430,6 +1438,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1797,12 +1806,14 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0144f064fcd878b4b88ab0fe39eb1a39, type: 2}
   - {fileID: 2100000, guid: 571c8f111342d194d8b851fecfbdde56, type: 2}
-  - {fileID: 2100000, guid: bdbc0dfac70dd774483d9c7f9858b587, type: 2}
+  - {fileID: 2100000, guid: 571c8f111342d194d8b851fecfbdde56, type: 2}
   - {fileID: 2100000, guid: ba012ce79489af24dbb829460a107dc0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1821,6 +1832,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2384,6 +2396,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2409,6 +2423,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2998,6 +3013,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3020,6 +3037,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3971,6 +3989,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3995,6 +4015,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -4324,16 +4345,9 @@ GameObject:
   - component: {fileID: 5825835207094158619}
   - component: {fileID: 8917838835034181654}
   - component: {fileID: 8649771541322101591}
-  - component: {fileID: 7643218886839360593}
-  - component: {fileID: 4085599972424362252}
-  - component: {fileID: 5317836860622662415}
-  - component: {fileID: 5332595184491437396}
-  - component: {fileID: 5812898482751691089}
   - component: {fileID: 883091964036008407}
   - component: {fileID: 7564644857802313972}
   - component: {fileID: 5149458548516746380}
-  - component: {fileID: 6996617472250104610}
-  - component: {fileID: 4463770375716493300}
   m_Layer: 0
   m_Name: npcf3
   m_TagString: Untagged
@@ -4543,90 +4557,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filePath: Secure/APIKeys
-  debug: 1
---- !u!114 &7643218886839360593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 244712dae6e6500449d96bb4565a7436, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sttGroqOpenAI: {fileID: 0}
-  sttHFOpenAI: {fileID: 0}
-  stt11labs: {fileID: 0}
-  llmGroq: {fileID: 0}
-  llmGoogle: {fileID: 0}
-  llmGoogleVision: {fileID: 4085599972424362252}
-  llmOllama: {fileID: 0}
-  ragGWS: {fileID: 0}
-  maxResults: 3
-  ttsSFSimba: {fileID: 0}
-  tts11Labs: {fileID: 0}
-  ttiHFSDXLB: {fileID: 0}
---- !u!114 &4085599972424362252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 114a1e96d43be6a4082e00fb31ff8635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedModel: 0
-  maxNumberOfWords: 50
-  whoAmI: GAIA
-  context: You are a friendly assistant, you were born in 2001 and you have a dog
-    named Rocket.
-  closedContext: 1
-  spawnPosition: {x: 0, y: 0, z: 0}
-  debug: 1
---- !u!114 &5317836860622662415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cccbdcddbac43ed45859a71ff4c55e9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxResults: 5
-  debug: 1
---- !u!114 &5332595184491437396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 262ef4d5408a29646bd4ca68f250386b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
---- !u!114 &5812898482751691089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b5303f9c1699894d95aa28f3ea76db1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  secretFilePath: 
+  serverUrl: 
+  useLocalAPIKeys: 0
+  debug: 0
 --- !u!114 &883091964036008407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4639,7 +4573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a0e49187d9b0e488e8c39c76736c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pttButton: {fileID: 0}
   isRecording: 0
+  debug: 0
 --- !u!114 &7564644857802313972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4661,23 +4597,18 @@ MonoBehaviour:
   npcLEye: {fileID: 7578485845277367065}
   npcREye: {fileID: 3751980775304985976}
   blinkInterval: 5
+  camPos: {fileID: 0}
   blinkDuration: 0.1
+  expressionSmoothingTime: 0.3
   enableBlink: 1
   lookAtMe: 1
-  blink: Genesis9__EyeBlink
-  lookHorizontal: Genesis9__EyeLookSide-Side
-  lookVertical: Genesis9__EyeLookUp-Down
-  smile: Genesis9__Happy
-  serious: Genesis9__EyeSquint
-  annoyed: Genesis9__Annoyed
-  squint: Genesis9__EyeSquint
+  expressionConfigs: []
   BLINK: 0
   LOOKH: 0
   LOOKV: 0
-  SMILE: 0
-  SERIOUS: 0
-  ANNOYED: 0
-  SQUINT: 0
+  blink: Genesis9__EyeBlink
+  lookHorizontal: Genesis9__EyeLookSide-Side
+  lookVertical: Genesis9__EyeLookUp-Down
   debug: 0
 --- !u!114 &5149458548516746380
 MonoBehaviour:
@@ -4691,74 +4622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22df620edb2812f4d905e074db4b67b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6996617472250104610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87560e04aa74c7a41acb9c87051c3b02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 04d8d7db6114a384aaabeb1d02dd2013, type: 2}
-  onLipSyncUpdate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4463770375716493300}
-        m_TargetAssemblyTypeName: uLipSync.uLipSyncBlendShape, uLipSync.Runtime
-        m_MethodName: OnLipSyncUpdate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  outputSoundGain: 1
-  audioSourceProxy: {fileID: 5149458548516746380}
---- !u!114 &4463770375716493300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252485441180179143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2163de355e8fd8e4b83b631e07455323, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateMethod: 0
-  skinnedMeshRenderer: {fileID: 5644503851492912886}
-  blendShapes:
-  - phoneme: A
-    index: 6
-    maxWeight: 1
-  - phoneme: E
-    index: 5
-    maxWeight: 1
-  - phoneme: I
-    index: 2
-    maxWeight: 1
-  - phoneme: O
-    index: 1
-    maxWeight: 1
-  - phoneme: U
-    index: 0
-    maxWeight: 1
-  - phoneme: '-'
-    index: -1
-    maxWeight: 1
-  maxBlendShapeValue: 100
-  minVolume: -2.5
-  maxVolume: -1.5
-  smoothness: 0.05
-  usePhonemeBlend: 0
 --- !u!1 &4261360873590411034
 GameObject:
   m_ObjectHideFlags: 0
@@ -6399,6 +6262,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6422,6 +6287,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7392,6 +7258,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7413,6 +7281,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
