@@ -4,16 +4,15 @@ This is a fully featured, free*, functional UNITY 6 AI project. Features:
 * NPC with speech interface: using STT+LLM+TTS cloud services
 * Speech to Text providers supported: GroqCloud(OpenAI Whisper), HuggingFace (ElevenLabs to be added soon)
 * LLM supported: GroqCloud, Google Gemini, Ollama
-* Text to Speech supported: Speechify, ElevenLabs, RapidApi
-* Text to Image providers: HuggingFace
-* RAG supported: MariaDB, Google Web Search (Ollama RAG to be added soon)
+* Text to Speech supported: Speechify, ElevenLabs
+* RAG supported: Google Web Search
 
 (* => excluding paid cloud services for the NPC and assumes you don't exceed the Vivox Voice services complementary service tresholds)
 
 What is new in this Branch
 ==========================
-* This branch is running on UNITY 6
-* AI API keys are stored in a file in Assets/Resources/Secure
+* This branch is running on UNITY 6000.1.12f1 (July 2025)
+* AI API keys are stored in a file in Assets/Resources/Secure (not included)
 * Google LLM has a version with <b>vision</b> which is able to interpret webcam/camera images
 
 
@@ -37,5 +36,4 @@ Steps to get started
 
 Compatibility
 =============
-* Currently this code is tested for Windows and WebGL
-* It should run perfectly on a Mac, Android and iOS (to be tested)
+* Currently this code is tested for iOS, Android, Windows and WebGL
