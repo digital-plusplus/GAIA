@@ -13,7 +13,7 @@ What is new in this Branch
 ==========================
 * This branch is running on UNITY 6000.2.6f2
 * AI API keys are stored in a file in Assets/Resources/Secure (<b>not</b> included)
-* Google Gemini LLM is REMOVED from the project as the free API tier daily limits have been so much reduced it no longes is viable using Gemini in this project
+* Google Gemini LLM is REMOVED from the project as the free API tier daily limits have been so much reduced it is no longer viable to use Gemini in this project
 
 
 Steps to get started
