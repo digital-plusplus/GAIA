@@ -6,12 +6,13 @@ using UnityEngine.Networking;
 
 public class LLM_Google : MonoBehaviour
 {
+    /* DEPRECATED AS PER DEC2025 AS THE FREE TIER IS NO LONGER USEABLE
     private string apiKey;
     const string apiURI = "https://generativelanguage.googleapis.com/v1beta/models/";
 
     private enum LLMModel
     {
-        gemini_2X0_flash, gemini_2X0_flash_lite, gemini_2X5_pro_preview_03_25, gemini_1X5_pro, gemini_1X5_flash, gemini_1X5_flash_8b, gemma_3_1b_it, gemma_3_4b_it, gemma_3_12b_it, gemma_3_27B_it, gemma2_2b_it, gemma_2_9b_it, gemma_2_27b_it
+        gemini_3_pro_preview, gemini_2X5_flash, gemini_2X5_flash_lite
     }
 
     [SerializeField]
@@ -240,7 +241,7 @@ public class LLM_Google : MonoBehaviour
     {
         public Candidate[] candidates;
         // Add promptFeedback if needed
-    }
+    } */
 }
 
 

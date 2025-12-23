@@ -70,12 +70,11 @@ public class LLM_Groq : MonoBehaviour
             Debug.Log("You have selected LLM: " + selectedLLMString);
 
         //NEW - generate a prompt!
-        prompt = "Je bent " + whoAmI;
+        prompt = "You are " + whoAmI;
         if (shortResponse) 
-            prompt += "\nBeantwoord alle vragen kort en bondig!";
-        if (maxNumberOfWords >0) prompt += "\nBeantwoord alle vragen in maximaal "+ maxNumberOfWords + " woorden!\n";
-        prompt += "\nVandaag is het " + currentDate.ToShortDateString()+"\n";
-        prompt += "\nJe mag je naar maar 1 keer zeggen in alle antwoorden die je geeft!\n";
+            prompt += "\nAnswer all questions short and concise!";
+        if (maxNumberOfWords >0) prompt += "\nAnswer all questions in maximum "+ maxNumberOfWords + " words!\n";
+        prompt += "\nToday is " + currentDate.ToShortDateString()+"\n";
         prompt += CreatePromptContext(context);
         
         if (debug) 
@@ -120,11 +119,11 @@ public class LLM_Groq : MonoBehaviour
         string prompt = "";
         if (input != "")
         {
-            prompt += "\nBeantwoord de vraag met behulp van de volgende context:\n===\n";
+            prompt += "\nAnswer the question using the following context:\n===\n";
             prompt += input;
             prompt += "\n===";
 
-            if (closedContext) prompt += "\nAls je het antwoord niet kan vinden in de context dan antwoord je met: \"Ik heb werkelijk geen idee!\" of \"Dat weet ik helaas niet.\" of \"Daar heb ik helaas geen kaas van gegeten!\"";
+            if (closedContext) prompt += "\nIf you can't find the answer in the context then you answer with 'I don't know'";
         }
         return prompt;
     }
@@ -156,7 +155,7 @@ public class LLM_Groq : MonoBehaviour
 
         requestBody.model = selectedLLMString;
         string jsonRequestBody = JsonUtility.ToJson(requestBody);
-        LLMresult = "Ik wacht";
+        LLMresult = "Waiting";
 
         //Prepare  REST API Request
         UnityWebRequest request = new UnityWebRequest(apiURI, "POST");

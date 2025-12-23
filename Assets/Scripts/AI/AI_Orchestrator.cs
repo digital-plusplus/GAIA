@@ -13,8 +13,8 @@ public class AI_Orchestrator : MonoBehaviour
     
     [Header("LLM")]
     [SerializeField] public LLM_Groq llmGroq;
-    [SerializeField] public LLM_Google llmGoogle;
-    [SerializeField] public LLM_Google_Vision llmGoogleVision;  //Special extended version of llmGoogle that takes 3 inputs: (question, context, image)
+    //[SerializeField] public LLM_Google llmGoogle;                 //DEPRECATED
+    //[SerializeField] public LLM_Google_Vision llmGoogleVision;    //DEPRECATED
     [SerializeField] public LLM_Ollama llmOllama;
 
     [Header("RAG")]
@@ -31,8 +31,8 @@ public class AI_Orchestrator : MonoBehaviour
 
     public void Init()
     {
-        if (llmGoogle) llmGoogle.Init();
-        if (llmGoogleVision) llmGoogleVision.Init();
+        //if (llmGoogle) llmGoogle.Init();                      //DEPRECATED
+        //if (llmGoogleVision) llmGoogleVision.Init();          //DEPRECATED
         if (llmGroq) llmGroq.Init();
         if (llmOllama) llmOllama.Init();
 
@@ -59,27 +59,27 @@ public class AI_Orchestrator : MonoBehaviour
     public void TextToLLM(string input, string context)
     {
         if (llmGroq)            llmGroq.TextToLLM(input, context);
-        if (llmGoogle)          llmGoogle.TextToLLM(input, context);                //use either of the 2 Google LLM options
-        if (llmGoogleVision)    llmGoogleVision.TextToLLM(input, context);          //use either of the 2 Google LLM options
+        //if (llmGoogle)          llmGoogle.TextToLLM(input, context);                //DEPRECATED
+        //if (llmGoogleVision)    llmGoogleVision.TextToLLM(input, context);          //DEPRECATED
         if (llmOllama)          llmOllama.TextToLLM(input, context);
     }
 
     //This will let the LLM look at the webcam image
     public void TextWithVisionToLLM(string input)
     {
-        if (llmGoogleVision) llmGoogleVision.TextToLLMWithVision(input);
+        //if (llmGoogleVision) llmGoogleVision.TextToLLMWithVision(input);            //DEPRECATED
     }
 
 
     //Camera controls
     public void NextCamera()
     {
-        if (llmGoogleVision) llmGoogleVision.NextCamera();
+        //if (llmGoogleVision) llmGoogleVision.NextCamera();                            //DEPRECATED
     }
 
     public void CameraOff()
     {
-        if (llmGoogleVision) llmGoogleVision.CameraOff();
+        //if (llmGoogleVision) llmGoogleVision.CameraOff();                             //DEPRECATED
     }
 
 
