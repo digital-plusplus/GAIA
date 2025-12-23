@@ -3,7 +3,7 @@ What is this project
 This is a fully featured, free*, functional UNITY 6 AI project. Features:
 * NPC with speech interface: using STT+LLM+TTS cloud services
 * Speech to Text providers supported: GroqCloud(OpenAI Whisper), ElevenLabs & more
-* LLM supported: GroqCloud, Google Gemini, Ollama
+* LLM supported: GroqCloud and Ollama
 * Text to Speech supported: Speechify, ElevenLabs
 * RAG supported: Google Web Search
 
@@ -11,9 +11,9 @@ This is a fully featured, free*, functional UNITY 6 AI project. Features:
 
 What is new in this Branch
 ==========================
-* This branch is running on UNITY 6000.1.12f1 (July 2025)
+* This branch is running on UNITY 6000.2.6f2
 * AI API keys are stored in a file in Assets/Resources/Secure (<b>not</b> included)
-* Google LLM has a version with <b>vision</b> which is able to interpret webcam/camera images
+* Google Gemini LLM is REMOVED from the project as the free API tier daily limits have been so much reduced it no longes is viable using Gemini in this project
 
 
 Steps to get started
