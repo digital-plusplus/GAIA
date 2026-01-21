@@ -1,10 +1,11 @@
+What is this project
+====================
+
 Watch the YouTube videos to learn more about the project: 
 * 2026-01-23 - https://youtu.be/hHEtT9VM4Os
 * 2026-01-20 - https://youtu.be/a0ZdeBmG070
 * 2025-12-27 - https://youtu.be/_kgB33y2OTM
 
-What is this project
-====================
 This is a fully featured, free*, functional UNITY 6 AI project. Features:
 * NPC with speech interface: using STT+LLM+TTS cloud services
 * NPC expressions/emotions using blendshapes
