@@ -14,7 +14,8 @@ Features:
 * Speech to Text providers supported: GroqCloud(OpenAI Whisper)
 * LLM with vision and function calling supported: GroqCloud, Ollama
 * Text to Speech supported: Speechify
-* Various function calling tools: Google Websearch, Weather service, Maps, GPS, open URL
+* Includes one function calling tool for demonstration purposes: Google Websearch
+* Fully operational Asynchronous Message Bus communication mechanism between all AI components
 * Communication to remote services using REST API, internal component communication using an async Message Bus
 
 (* => excluding paid cloud services for the NPC and assumes you don't exceed the Vivox Voice services complementary service tresholds)
