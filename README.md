@@ -1,12 +1,14 @@
 What is this project
 ====================
 
+This is a fully featured, free*, functional UNITY 6 AI project.
+
 Watch the YouTube videos to learn more about the project: 
 * 2026-01-23 - Explanation of the Asynchroneous Message Bus architecture, Function Calling JSON deep dive, demo running with a local free Ollama LLM - https://youtu.be/hHEtT9VM4Os
 * 2026-01-20 - Demo of GAIA running on iOS using GroqCloud LLMs - https://youtu.be/a0ZdeBmG070
 * 2025-12-27 - Why I abandoned Gemini API - https://youtu.be/_kgB33y2OTM
 
-This is a fully featured, free*, functional UNITY 6 AI project. Features:
+Features:
 * NPC with speech interface: using STT+LLM+TTS cloud services
 * NPC expressions/emotions using blendshapes
 * Speech to Text providers supported: GroqCloud(OpenAI Whisper)
